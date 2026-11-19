@@ -1,0 +1,101 @@
+TPF/Ticket/
+├── aplicación/
+│   ├── __init__.py                    # Factory de la App
+│   ├── controladores/
+│   │   ├── __init__.py
+│   │   ├── controlador_autenticación.py # ControlLogin
+│   │   ├── controlador_producto.py      # ControlProducto
+│   │   ├── controlador_de_tickets.py    # ControlTicket
+│   │   └── controlador_notificacion.py  # ControlNotificacion
+│   ├── modelos/
+│   │   ├── __init__.py
+│   │   ├── usuario.py
+│   │   ├── ticket.py
+│   │   ├── hito.py
+│   │   ├── estado.py
+│   │   ├── notificacion.py
+│   │   ├── producto.py
+│   │   └── rubro.py
+│   └── ...
+├── instancia/ticketing.db
+├── ejecutar.py
+└── requisitos.txt
+
+
+
+TRABAJO FINAL INTEGRADOR - SISTEMA DE TICKETS
+Materia: Algoritmos y Estructuras de Datos III
+
+1. DESCRIPCIÓN DEL PROYECTO
+Este proyecto implementa una API REST para la gestión de tickets de soporte técnico. Utiliza el patrón de arquitectura MVC (Modelo-Vista-Controlador) y el patrón Factory para la inicialización de la aplicación. La persistencia se realiza mediante una base de datos SQLite utilizando el ORM SQLAlchemy.
+
+2. TECNOLOGÍAS UTILIZADAS
+
+Lenguaje: Python 3
+
+Framework Web: Flask (utilizando Blueprints para los controladores)
+
+Base de Datos: SQLite
+
+ORM: Flask-SQLAlchemy
+
+3. ESTRUCTURA DEL PROYECTO
+El proyecto está organizado de la siguiente manera para respetar los diagramas UML presentados:
+
+aplicación/: Paquete principal.
+
+__init__.py: Archivo Factory que inicializa Flask, la BD y registra los controladores.
+
+controladores/: Contiene la lógica de la API (Blueprint).
+
+controlador_autenticacion.py: Maneja el inicio de sesión (ControlLogin).
+
+controlador_de_tickets.py: Maneja la creación de tickets, hitos y cambio de estados (ControlTicket).
+
+controlador_producto.py: Maneja la consulta de productos (ControlProducto).
+
+modelos/: Definición de las tablas de la base de datos.
+
+usuario.py: Modelo de Usuario (Cliente/Agente).
+
+ticket.py: Modelo de Ticket, Hito, Estado y Notificación (con relaciones de composición).
+
+ejecutar.py: Script principal para arrancar el servidor y crear las tablas iniciales.
+
+4. REQUERIMIENTOS CUMPLIDOS
+
+RF1: Gestión de usuarios (Login implementado).
+
+RF2: Gestión de tickets (Creación y cambio de estado).
+
+RF3: Gestión de hitos (Hilo de mensajes por ticket).
+
+RF4: Gestión de notificaciones (Se genera notificación automática al cambiar el estado del ticket).
+
+RF5 y RF6: Gestión de estados (Abierto, Cerrado, Reabierto).
+
+5. CÓMO EJECUTAR EL PROYECTO
+
+Instalar dependencias: pip install -r requisitos.txt
+
+Ejecutar el servidor: python3 ejecutar.py
+al ejecutar python3 ejecutar.py por primera vez, el sistema crea automáticamente la carpeta instancia y la base de datos ticketing.db.
+
+El servidor estará disponible en: http://localhost:5000
+
+6. ENDPOINTS PRINCIPALES
+
+POST /api/auth/login (Iniciar Sesión)
+
+POST /api/tickets/ (Crear Ticket)
+
+POST /api/tickets/<id>/hitos (Agregar mensaje al ticket)
+
+PUT /api/tickets/<id>/estado (Cambiar estado del ticket y generar notificación)
+
+7. PRUEBAS REALIZADAS
+Se verificó el correcto funcionamiento de la API mediante peticiones HTTP (usando curl y el navegador):
+- Login exitoso (POST /api/auth/login) devolviendo el ID del usuario.
+- Creación de ticket (POST /api/tickets/) asignando el estado "Abierto" (ID 1).
+- Cambio de estado (PUT /api/tickets/1/estado) y generación automática de la notificación asociada al cliente.
+- Consulta de notificaciones generadas (GET /api/notificaciones/1).
